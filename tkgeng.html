@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>TKG ENG CLASS</title>
+</head>
+<body>
+  <h1>=====================================</h1>
+  <h2>WELCOME TO TKG ENG CLASS</h2>
+  <h1>=====================================</h1>
+
+  <div id="signup">
+    <h3>가입</h3>
+    <input id="signupId" placeholder="사번">
+    <input id="signupName" placeholder="이름">
+    <input id="signupPassword" type="password" placeholder="비밀번호">
+    <button onclick="signup()">가입</button>
+  </div>
+
+  <div id="login">
+    <h3>로그인</h3>
+    <input id="loginId" placeholder="사번">
+    <input id="loginPassword" type="password" placeholder="비밀번호">
+    <button onclick="login()">로그인</button>
+  </div>
+
+  <div id="quiz" style="display:none;">
+    <h3>시험</h3>
+    <p id="question"></p>
+    <input id="answer" placeholder="뜻 입력">
+    <button onclick="submitAnswer()">제출</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function signup() {
+      const id = document.getElementById("signupId").value;
+      const name = document.getElementById("signupName").value;
+      const password = document.getElementById("signupPassword").value;
+      alert(`가입 완료! ${name}님, 환영합니다.`);
+      // 실제로는 서버에 저장하는 코드 필요
+    }
+
+    function login() {
+      const id = document.getElementById("loginId").value;
+      const password = document.getElementById("loginPassword").value;
+      alert(`로그인 성공! 사번: ${id}`);
+      document.getElementById("quiz").style.display = "block";
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      const sampleWords = { "Apple": "사과", "Banana": "바나나", "Cat": "고양이" };
+      const keys = Object.keys(sampleWords);
+      const word = keys[Math.floor(Math.random() * keys.length)];
+      document.getElementById("question").innerText = `'${word}' 뜻은 무엇일까요?`;
+      document.getElementById("question").dataset.answer = sampleWords[word];
+    }
+
+    function submitAnswer() {
+      const userAnswer = document.getElementById("answer").value;
+      const correct = document.getElementById("question").dataset.answer;
+      if (userAnswer === correct) {
+        document.getElementById("result").innerText = "✅ 정답입니다!";
+      } else {
+        document.getElementById("result").innerText = `❌ 정답은 '${correct}'`;
+      }
+      nextQuestion();
+    }
+  </script>
+</body>
+</html>
